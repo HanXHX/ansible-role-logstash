@@ -1,17 +1,14 @@
 ---
+
 dependencies: []
 
 galaxy_info:
-  author: geerlingguy
+  author: HanXHX
   description: Logstash for Linux.
   company: "Midwestern Mac, LLC"
   license: "license (BSD, MIT)"
-  min_ansible_version: 1.8
+  min_ansible_version: 2.2
   platforms:
-    - name: EL
-      versions:
-      - 6
-      - 7
     - name: Debian
       versions:
       - all
@@ -22,3 +19,6 @@ galaxy_info:
     - web
     - system
     - monitoring
+    - elk
+    - logstash
+    - elasticsearch
