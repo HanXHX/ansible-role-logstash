@@ -1,3 +1,5 @@
 ---
+
 - name: restart logstash
   service: name=logstash state=restarted
+  when: not logstash_is_docker
