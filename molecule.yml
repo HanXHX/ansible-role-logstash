@@ -1,0 +1,12 @@
+---
+dependency:
+  name: galaxy
+ansible:
+  playbook: tests/test.yml
+driver:
+  name: docker
+docker:
+  containers:
+    - name: ansible-logstash
+      image: debian
+      image_version: jessie

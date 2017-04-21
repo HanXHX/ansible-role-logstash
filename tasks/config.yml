@@ -1,5 +1,6 @@
 ---
-- name: Create Logstash configuration files.
+
+- name: TEMPLATE | Create Logstash configuration files
   template:
     src: "{{ item }}.j2"
     dest: "/etc/logstash/conf.d/{{ item }}"
@@ -11,7 +12,7 @@
     - 30-elasticsearch-output.conf
   notify: restart logstash
 
-- name: Create Logstash filters.
+- name: COPY | Create Logstash filters
   copy:
     src: "filters/{{ item }}"
     dest: "/etc/logstash/conf.d/{{ item }}"
@@ -26,7 +27,7 @@
     - 15-drupal.conf
   notify: restart logstash
 
-- name: Create Logstash configuration file for local syslog.
+- name: TEMPLATE | Create Logstash configuration file for local syslog
   template:
     src: 02-local-syslog-input.conf.j2
     dest: /etc/logstash/conf.d/02-local-syslog-input.conf
@@ -36,7 +37,7 @@
   when: logstash_monitor_local_syslog
   notify: restart logstash
 
-- name: Ensure configuration for local syslog is absent if disabled.
+- name: FILE | Ensure configuration for local syslog is absent if disabled
   file:
     path: /etc/logstash/conf.d/02-local-syslog-input.conf
     state: absent

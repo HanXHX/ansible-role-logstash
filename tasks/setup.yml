@@ -1,0 +1,43 @@
+---
+
+- name: SET_FACT | Is docker?
+  set_fact:
+    logstash_is_docker: "{{ false if ansible_virtualization_type is not defined or ansible_virtualization_type != 'docker' else true }}"
+
+- name: SHELL | Get java version
+  shell: java -version 2>&1 | awk -F '"' '/version/ { print $2 }'
+  register: java_version
+  changed_when: false
+
+- name: FAIL | Fail if java < 8.0
+  fail: msg="Java version ({{ java_version.stdout | default('not installed?', true) }}) is outdated"
+  when:
+    java_version.stdout | length == 0 or
+    java_version.stdout | version_compare('1.8', 'lt')
+
+- name: APT_KEY | Add Elasticsearch apt key
+  apt_key:
+    url: '{{ logstash_apt_key }}'
+    state: present
+
+- name: APT | Install apt-transport-https
+  apt: pkg=apt-transport-https
+
+- name: Add Logstash repository.
+  apt_repository:
+    repo: '{{ logstash_apt_repository }}'
+    state: present
+
+- name: APT | Update
+  apt: update_cache=yes update_cache=yes cache_valid_time=3600
+  changed_when: false
+
+- name: APT | Install Logstash
+  apt: pkg=logstash state=present
+
+- name: USER | Add Logstash user to adm group
+  user:
+    name: logstash
+    group: logstash
+    groups: adm
+  notify: restart logstash

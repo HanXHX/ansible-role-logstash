@@ -1,0 +1,3 @@
+---
+
+logstash_bin_plugin: '/usr/share/logstash/bin/logstash-plugin'

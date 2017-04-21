@@ -1,15 +1,21 @@
 ---
+
 - hosts: all
-
   vars:
-    logstash_enabled_on_boot: no
-
+    logstash_install_plugins:
+      - logstash-input-beats
+      - logstash-input-github
   pre_tasks:
-    - name: Update apt cache.
-      apt: update_cache=yes cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-
+    - name: APT_REPOSITORY | Add backports repository
+      apt_repository: repo="deb http://httpredir.debian.org/debian jessie-backports main"
+    - name: APT | Install Java 8
+      apt: pkg=openjdk-8-jre default_release='jessie-backports'
   roles:
-    - geerlingguy.java
-    - geerlingguy.elasticsearch
-    - role_under_test
+    - role: ../../
+  post_tasks:
+    - name: -- TEST -- Check logstash is running
+      shell: ps aux | grep -q logstash
+      register: t
+      failed_when: t.rc > 0
+      changed_when: false
+      when: not logstash_is_docker

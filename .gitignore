@@ -1,3 +1,4 @@
-files/logstash-forwarder*
-*.retry
-tests/test.sh
+*.swp
+/.molecule
+/.cache
+/.vagrant
