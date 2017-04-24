@@ -14,6 +14,8 @@ logstash_elasticsearch:
   hosts:
     - http://localhost:9200
 
+logstash_conf_glob: false
+
 logstash_ssl_dir: /etc/pki/logstash
 logstash_ssl_certificate_file: ""
 logstash_ssl_key_file: ""

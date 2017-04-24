@@ -24,8 +24,9 @@ Available variables are listed below, along with default values (see `defaults/m
 
 The port over which Logstash will listen for beats.
 
-    logstash_elasticsearch_hosts:
-      - http://localhost:9200
+Add extra (related to your playbook path) config files
+
+    logstash_conf_glob: 'myfolder/*.conf'
 
 The hosts where Logstash should ship logs to Elasticsearch.
 

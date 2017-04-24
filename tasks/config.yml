@@ -24,3 +24,13 @@
     - 11-nginx.conf
     - 12-apache.conf
   notify: restart logstash
+
+- name: COPY | Push extra configuration files
+  copy: >
+    src="{{ item }}"
+    dest="/etc/logstash/conf.d/"
+    owner="root"
+    group="root"
+    mode="0644"
+  with_fileglob: "{{ logstash_conf_glob }}"
+  when: logstash_conf_glob is iterable
