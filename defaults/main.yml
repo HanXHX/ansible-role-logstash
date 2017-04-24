@@ -1,9 +1,13 @@
 ---
 
-
 # APT Configuration
 logstash_apt_repository: 'deb https://artifacts.elastic.co/packages/5.x/apt stable main'
 logstash_apt_key: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
+
+# JVM Configuration
+logstash_jvm:
+  Xms: "{{ (ansible_memtotal_mb * 0.25) | int }}m"
+  Xmx: "{{ (ansible_memtotal_mb * 0.50) | int }}m"
 
 logstash_listen_port_beats: 5044
 logstash_elasticsearch_hosts:

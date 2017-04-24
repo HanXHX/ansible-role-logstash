@@ -17,6 +17,8 @@ Though other methods are possible, this role is made to work with Elasticsearch 
 
 ## Role Variables
 
+You can manage JVM options (see `defaults/main.yml`).
+
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
     logstash_listen_port_beats: 5044

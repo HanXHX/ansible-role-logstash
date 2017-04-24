@@ -20,8 +20,11 @@
     url: '{{ logstash_apt_key }}'
     state: present
 
-- name: APT | Install apt-transport-https
-  apt: pkg=apt-transport-https
+- name: APT | Install needed packages
+  apt: pkg={{ item }}
+  with_items:
+    - apt-transport-https
+    - haveged
 
 - name: Add Logstash repository.
   apt_repository:
@@ -34,6 +37,24 @@
 
 - name: APT | Install Logstash
   apt: pkg=logstash state=present
+  register: i
+
+- block:
+
+  - name: SERVICE | Stop logstash
+    service: name=logstash state=stopped
+
+  - name: LINEINFILE | Configure JVM
+    lineinfile: >
+      dest="/etc/logstash/jvm.options"
+      regexp="^#?-{{ item.key }}"
+      line="-{{ item.key }}{{ item.value | default('') }}"
+    with_dict: "{{ logstash_jvm }}"
+
+  - name: SERVICE | Stop logstash
+    service: name=logstash state=started
+
+  when: i.changed
 
 - name: USER | Add Logstash user to adm group
   user:
