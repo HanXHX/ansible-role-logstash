@@ -25,8 +25,8 @@
     - 12-apache.conf
   notify: restart logstash
 
-- name: COPY | Push extra configuration files
-  copy: >
+- name: TEMPLATE | Push extra configuration files
+  template: >
     src="{{ item }}"
     dest="/etc/logstash/conf.d/"
     owner="root"

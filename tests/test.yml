@@ -4,6 +4,7 @@
   gather_facts: yes
   vars:
     install_elasticsearch: false
+    syslog_path: '/var/log/syslog'
     logstash_install_plugins:
       - logstash-input-beats
       - logstash-input-github
