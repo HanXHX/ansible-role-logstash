@@ -1,7 +1,7 @@
 Ansible Role: Logstash
 ======================
 
-[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-HanXHX.logstash-blue.svg)](https://galaxy.ansible.com/HanXHX/logstash) [![Build Status](https://travis-ci.org/HanXHX/ansible-logstash.svg?branch=master)](https://travis-ci.org/HanXHX/ansible-logstash)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-HanXHX.logstash-blue.svg)](https://galaxy.ansible.com/HanXHX/logstash) [![Build Status](https://travis-ci.org/HanXHX/ansible-role-logstash.svg?branch=master)](https://travis-ci.org/HanXHX/ansible-role-logstash)
 
 An Ansible Role that installs Logstash on Debian/Ubuntu.
 

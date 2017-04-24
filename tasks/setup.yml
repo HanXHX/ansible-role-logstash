@@ -43,6 +43,7 @@
 
   - name: SERVICE | Stop logstash
     service: name=logstash state=stopped
+    when: not logstash_is_docker
 
   - name: LINEINFILE | Configure JVM
     lineinfile: >
@@ -53,6 +54,7 @@
 
   - name: SERVICE | Stop logstash
     service: name=logstash state=started
+    when: not logstash_is_docker
 
   when: i.changed
 
