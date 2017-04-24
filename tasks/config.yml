@@ -21,8 +21,6 @@
     mode: 0644
   with_items:
     - 10-syslog.conf
-    - 11-nginx.conf
-    - 12-apache.conf
   notify: restart logstash
 
 - name: TEMPLATE | Push extra configuration files
