@@ -18,18 +18,13 @@ Vagrant.configure("2") do |config|
     config.vm.define vm[0] do |m|
       m.vm.box = vm[1]
       m.vm.network "private_network", type: "dhcp"
-
-      if vm[0] == "devuan-jessie"
-          config.ssh.username = "root"
-          config.ssh.password = "devuan"
-          config.vm.guest = :debian
-          config.vm.synced_folder ".", "/vagrant", disabled: true
-      end
-
       m.vm.provision "ansible" do |ansible|
         ansible.playbook = "tests/test.yml"
         ansible.verbose = 'vv'
         ansible.sudo = true
+        ansible.extra_vars = {
+          install_elasticsearch: true
+        }
       end
     end
   end

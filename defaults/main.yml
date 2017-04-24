@@ -10,8 +10,9 @@ logstash_jvm:
   Xmx: "{{ (ansible_memtotal_mb * 0.50) | int }}m"
 
 logstash_listen_port_beats: 5044
-logstash_elasticsearch_hosts:
-  - http://localhost:9200
+logstash_elasticsearch:
+  hosts:
+    - http://localhost:9200
 
 logstash_ssl_dir: /etc/pki/logstash
 logstash_ssl_certificate_file: ""

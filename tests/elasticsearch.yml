@@ -1,0 +1,30 @@
+---
+
+- name: APT | Install elasticsearch
+  apt: pkg=elasticsearch
+
+- name: LINEINFILE | Elasticsearch suick config...
+  lineinfile: >
+    dest=/etc/elasticsearch/elasticsearch.yml
+    regexp='{{ item.regexp | default(omit) }}'
+    line='{{ item.line }}'
+  with_items:
+    - regexp: '^#?http\.port'
+      line: 'http.port: 9200'
+    - regexp: '^#?network\.host'
+      line: 'network.host: 0.0.0.0'
+    - line: 'http.cors.enabled: true'
+    - line: 'http.cors.allow-origin : "*"'
+  notify: restart elasticsearch
+
+- name: LINEINFILE | Elasticsearch JVM config
+  lineinfile: >
+    dest=/etc/elasticsearch/jvm.options
+    regexp='{{ item.regexp }}'
+    line='{{ item.line }}'
+  with_items:
+    - regexp: '^-Xms'
+      line: '-Xms128m'
+    - regexp: '^-Xmx'
+      line: '-Xmx128m'
+  notify: restart elasticsearch

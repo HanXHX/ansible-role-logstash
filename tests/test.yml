@@ -3,9 +3,13 @@
 - hosts: all
   gather_facts: yes
   vars:
+    install_elasticsearch: false
     logstash_install_plugins:
       - logstash-input-beats
       - logstash-input-github
+  handlers:
+    - name: restart elasticsearch
+      service: name=elasticsearch state=restarted
   pre_tasks:
     - name: APT_REPOSITORY | Add backports repository
       apt_repository: repo="deb http://httpredir.debian.org/debian jessie-backports main"
@@ -20,3 +24,6 @@
       failed_when: t.rc > 0
       changed_when: false
       when: not logstash_is_docker
+    - name: INCLUDE | Install elasticsearch on Vagrant
+      include: elasticsearch.yml
+      when: install_elasticsearch
