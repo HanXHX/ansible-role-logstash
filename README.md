@@ -1,7 +1,6 @@
 Ansible Role: Logstash
 ======================
 
-
 [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-HanXHX.logstash-blue.svg)](https://galaxy.ansible.com/HanXHX/logstash) [![Build Status](https://travis-ci.org/HanXHX/ansible-logstash.svg?branch=master)](https://travis-ci.org/HanXHX/ansible-logstash)
 
 An Ansible Role that installs Logstash on Debian/Ubuntu.
@@ -43,11 +42,6 @@ To generate a self-signed certificate/key pair, you can use use the command:
     $ sudo openssl req -x509 -batch -nodes -days 3650 -newkey rsa:2048 -keyout logstash.key -out logstash.crt
 
 Note that filebeat and logstash may not work correctly with self-signed certificates unless you also have the full chain of trust (including the Certificate Authority for your self-signed cert) added on your server. See: https://github.com/elastic/logstash/issues/4926#issuecomment-203936891
-
-    logstash_local_syslog_path: /var/log/syslog
-    logstash_monitor_local_syslog: true
-
-Whether configuration for local syslog file (defined as `logstash_local_syslog_path`) should be added to logstash. Set this to `false` if you are monitoring the local syslog differently, or if you don't care about the local syslog file. Other local logs can be added by your own configuration files placed inside `/etc/logstash/conf.d`.
 
     logstash_enabled_on_boot: yes
 
