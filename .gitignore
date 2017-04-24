@@ -2,3 +2,4 @@
 /.molecule
 /.cache
 /.vagrant
+*.retry
