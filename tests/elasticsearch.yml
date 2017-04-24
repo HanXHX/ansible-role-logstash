@@ -28,3 +28,6 @@
     - regexp: '^-Xmx'
       line: '-Xmx128m'
   notify: restart elasticsearch
+
+- name: SERVICE | Enable and start elasticsearch
+  service: name=elasticsearch state=started enabled=yes
