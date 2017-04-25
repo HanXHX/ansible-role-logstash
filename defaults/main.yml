@@ -16,9 +16,10 @@ logstash_elasticsearch:
 
 logstash_conf_glob: false
 
-logstash_ssl_dir: /etc/pki/logstash
-logstash_ssl_certificate_file: ""
-logstash_ssl_key_file: ""
+logstash_ssl_dir: /etc/logstash/ssl
+logstash_ssl_certificate_file: null
+logstash_ssl_key_file: null
+logstash_ssl_verify_mode: 'none'
 
 logstash_enabled_on_boot: yes
 
